@@ -84,7 +84,7 @@
 
 
 /* use gcc endianness definitions when available */
-#if defined(__GNUC__) && !defined(__APPLE__) && !defined(__MINGW32__) && !defined(__sun)
+#if defined(__GNUC__) && !defined(__APPLE__) && !defined(__MINGW32__) && !defined(__sun) && !defined(__SWITCH__)
 	#if defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__NetBSD__)
 		#include <sys/endian.h>
 	#else
@@ -96,6 +96,14 @@
 	#elif __BYTE_ORDER == __BIG_ENDIAN
 		#define CONF_ARCH_ENDIAN_BIG 1
 	#endif
+#endif
+
+#if defined(__SWITCH__)
+	#define CONF_ARCH_ENDIAN_LITTLE 1
+	#define CONF_FAMILY_UNIX
+	#define CONF_FAMILY_STRING "switch"
+	#define CONF_PLATFORM_SWITCH 1
+	#define CONF_PLATFORM_STRING "switch"
 #endif
 
 
