@@ -97,14 +97,7 @@
 	#endif
 #endif
 
-#if defined(__SWITCH__)
-	#define CONF_ARCH_ENDIAN_LITTLE 1
-	#define CONF_FAMILY_UNIX
-	#define CONF_FAMILY_STRING "switch"
-	#define CONF_PLATFORM_SWITCH 1
-	#define CONF_PLATFORM_STRING "switch"
-#endif
-
+#include <switch/detectPatch.h>
 
 /* architectures */
 #if defined(i386) || defined(__i386__) || defined(__x86__) || defined(CONF_PLATFORM_WIN32)

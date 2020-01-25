@@ -47,13 +47,8 @@ set(HOMEBREW_APP "teeworlds")
 # Meta information about the app
 set(APP_TITLE ${HOMEBREW_APP})
 set(APP_AUTHOR "Flyingsky")
-# set(APP_ICON "assets/icon.png")
+set(APP_ICON "../assets/teeworlds.jpg")
 
-set(VERSION_MAJOR 0)
-set(VERSION_MINOR 0)
-set(VERSION_MICRO 1)
-set(APP_VERSION
-        "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_MICRO}")
 
 if (NOT DEFINED CMAKE_BUILD_TYPE_INIT)
     set(CMAKE_BUILD_TYPE_INIT Release)
@@ -77,6 +72,8 @@ cmake_info("Building ${APP_TITLE} version ${APP_VERSION}.")
 #include(include/CMakeLists.txt)
 #include(src/CMakeLists.txt)
 include(CMakeLists2.txt)
+set(APP_VERSION
+        "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 
 find_package(Bz2)
 target_link_libraries(${HOMEBREW_APP}.elf switch::bz2)
