@@ -4,7 +4,7 @@ endif ()
 
 set(DRM_PATHS $ENV{DRM} drm ${DRM} ${PORTLIBS})
 
-find_path(DRM_INCLUDE_DIR nouveau_drm.h
+find_path(DRM_INCLUDE_DIR nouveau.h
         PATHS ${DRM_PATHS}
         PATH_SUFFIXES include)
 

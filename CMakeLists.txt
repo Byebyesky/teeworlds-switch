@@ -78,15 +78,23 @@ cmake_info("Building ${APP_TITLE} version ${APP_VERSION}.")
 #include(src/CMakeLists.txt)
 include(CMakeLists2.txt)
 
-
 find_package(Bz2)
 target_link_libraries(${HOMEBREW_APP}.elf switch::bz2)
-find_package(Drm)
-target_link_libraries(${HOMEBREW_APP}.elf switch::drm)
-find_package(EGL)
-target_link_libraries(${HOMEBREW_APP}.elf switch::egl)
+
 find_package(PNG)
 target_link_libraries(${HOMEBREW_APP}.elf switch::png)
+
+find_package(EGL)
+target_link_libraries(${HOMEBREW_APP}.elf switch::egl)
+
+find_package(GLES)
+target_link_libraries(${HOMEBREW_APP}.elf switch::gles)
+
+find_package(OpenGL)
+target_link_libraries(${HOMEBREW_APP}.elf switch::opengl)
+
+find_package(Drm)
+target_link_libraries(${HOMEBREW_APP}.elf switch::drm)
 
 target_link_libraries(${HOMEBREW_APP}.elf switch::libnx)
 set_target_properties(${HOMEBREW_APP}.elf PROPERTIES

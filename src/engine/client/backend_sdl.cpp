@@ -1,12 +1,13 @@
 #include <base/detect.h>
 #include "SDL.h"
 #include "SDL_opengl.h"
-#if defined(CONF_PLATFORM_MACOSX)
-#include "OpenGL/glu.h"
-#else
-#include "GL/glu.h"
+#if !defined(__SWITCH__)
+	#if defined(CONF_PLATFORM_MACOSX)
+		#include "OpenGL/glu.h"
+	#else
+		#include "GL/glu.h"
+	#endif
 #endif
-
 #include <base/tl/threading.h>
 
 #include "graphics_threaded.h"
@@ -246,7 +247,9 @@ void CCommandProcessorFragment_OpenGL::SetState(const CCommandBuffer::SState &St
 	// screen mapping
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(State.m_ScreenTL.x, State.m_ScreenBR.x, State.m_ScreenBR.y, State.m_ScreenTL.y, 1.0f, 10.f);
+	#if !defined(__SWITCH__)
+		glOrtho(State.m_ScreenTL.x, State.m_ScreenBR.x, State.m_ScreenBR.y, State.m_ScreenTL.y, 1.0f, 10.f);
+	#endif
 }
 
 void CCommandProcessorFragment_OpenGL::Cmd_Init(const SCommand_Init *pCommand)
@@ -373,7 +376,9 @@ void CCommandProcessorFragment_OpenGL::Cmd_Texture_Create(const CCommandBuffer::
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 			else
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
-			gluBuild2DMipmaps(GL_TEXTURE_2D, StoreOglformat, Width, Height, Oglformat, GL_UNSIGNED_BYTE, pTexData);
+			#if !defined(__SWITCH__)
+				gluBuild2DMipmaps(GL_TEXTURE_2D, StoreOglformat, Width, Height, Oglformat, GL_UNSIGNED_BYTE, pTexData);
+			#endif
 		}
 
 		// calculate memory usage
@@ -423,7 +428,7 @@ void CCommandProcessorFragment_OpenGL::Cmd_Texture_Create(const CCommandBuffer::
 			glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 			glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 			pTexData = pTmpData+i*(Width*Height*Depth*pCommand->m_PixelSize);
-			glTexImage3D(GL_TEXTURE_3D, 0, StoreOglformat, Width, Height, Depth, 0, Oglformat, GL_UNSIGNED_BYTE, pTexData);
+			//glTexImage3D(GL_TEXTURE_3D, 0, StoreOglformat, Width, Height, Depth, 0, Oglformat, GL_UNSIGNED_BYTE, pTexData);
 
 			m_aTextures[pCommand->m_Slot].m_MemSize += Width*Height*pCommand->m_PixelSize;
 		}
