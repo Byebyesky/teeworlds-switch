@@ -1,9 +1,26 @@
-<a href="https://repology.org/metapackage/teeworlds/versions">
-    <img src="https://repology.org/badge/vertical-allrepos/teeworlds.svg" alt="Packaging status" align="right">
-</a>
 
-Teeworlds ![GitHub Actions](https://github.com/teeworlds/teeworlds/workflows/Build/badge.svg)
+
+Teeworlds
 =========
+
+Nintendo Switch port
+---------------------------
+This is a nintendo switch port of teeworlds.  
+
+## It compiles and links, but won't launch yet.
+
+Make sure you have the switch portlibs and devkitpro installed as instructed  on [Switchbrew](https://switchbrew.org/wiki/Setting_up_Development_Environment)
+
+To build the port:
+```
+mkdir build
+cd build
+cmake .. -DCMAKE_TOOLCHAIN_FILE=../devkita64-libnx.cmake
+make -j$(nproc)
+```
+
+After that you should find the files ``teeworlds.elf teeworlds.nacp teeworlds.nro teeworlds.nso`` in the build directory.  
+Put them with the ``data`` folder in a directory on the nintendo switch and launch it with the homebrew menu.
 
 A retro multiplayer shooter
 ---------------------------
