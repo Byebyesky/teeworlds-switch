@@ -7,7 +7,7 @@ Nintendo Switch port
 ---------------------------
 This is a nintendo switch port of teeworlds.  
 
-## It compiles and links, but won't launch yet.
+## It compiles, links and launches but there is no video
 
 Make sure you have the switch portlibs and devkitpro installed as instructed  on [Switchbrew](https://switchbrew.org/wiki/Setting_up_Development_Environment)
 
