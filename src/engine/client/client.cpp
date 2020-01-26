@@ -1,5 +1,13 @@
 /* (c) Magnus Auvinen. See licence.txt in the root of the distribution for more information. */
 /* If you are missing that file, acquire a complete release at teeworlds.com.                */
+
+#include <SDL.h>
+#include <stdlib.h>
+#include <stdio.h>
+#if defined(__SWITCH__)
+	#include <switch/dbg.h>
+#endif
+
 #include <new>
 #include <algorithm>
 
@@ -43,16 +51,6 @@
 #include "contacts.h"
 #include "serverbrowser.h"
 #include "client.h"
-
-#if defined(CONF_FAMILY_WINDOWS)
-	#define WIN32_LEAN_AND_MEAN
-	#include <windows.h>
-#endif
-
-#include "SDL.h"
-#ifdef main
-#undef main
-#endif
 
 void CGraph::Init(float Min, float Max)
 {
@@ -2557,6 +2555,8 @@ extern "C" int SDL_main(int argc, char **argv_) // ignore_convention
 #else
 int main(int argc, const char **argv) // ignore_convention
 {
+	Switch::socketInitializeDefault();
+	Switch::nxlinkStdio();
 #endif
 #if defined(CONF_FAMILY_WINDOWS)
 	bool QuickEditMode = false;
@@ -2697,6 +2697,7 @@ int main(int argc, const char **argv) // ignore_convention
 	// run the client
 	dbg_msg("client", "starting...");
 	pClient->Run();
+	Switch::socketExit();
 
 	// write down the config and quit
 	pConfig->Save();

@@ -2454,6 +2454,8 @@ struct SECURE_RANDOM_DATA
 	int initialized;
 #if defined(CONF_FAMILY_WINDOWS)
 	HCRYPTPROV provider;
+#elif defined(__SWITCH__)
+	int t;
 #else
 	IOHANDLE urandom;
 #endif
@@ -2477,6 +2479,10 @@ int secure_random_init()
 	{
 		return 1;
 	}
+#elif defined(__SWITCH__)
+	srand(time(NULL));
+	secure_random_data.initialized = 1;
+	return 0;
 #else
 	secure_random_data.urandom = io_open("/dev/urandom", IOFLAG_READ);
 	if(secure_random_data.urandom)
@@ -2504,6 +2510,9 @@ void secure_random_fill(void *bytes, unsigned length)
 		dbg_msg("secure", "CryptGenRandom failed, last_error=%lu", GetLastError());
 		dbg_break();
 	}
+#elif defined(__SWITCH__)
+	for(unsigned int i = 0; i < length; i++)
+    	((char*)bytes)[i] = (char)(rand() % 256);
 #else
 	if(length != io_read(secure_random_data.urandom, bytes, length))
 	{

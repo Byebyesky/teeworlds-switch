@@ -8,6 +8,10 @@
 	to compile for.
 */
 
+#if defined(__SWITCH__)
+	#include <switch/detectPatch.h>
+#endif
+
 /* platforms */
 
 /* windows Family */
@@ -97,7 +101,7 @@
 	#endif
 #endif
 
-#include <switch/detectPatch.h>
+
 
 /* architectures */
 #if defined(i386) || defined(__i386__) || defined(__x86__) || defined(CONF_PLATFORM_WIN32)

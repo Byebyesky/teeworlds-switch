@@ -72,8 +72,12 @@ cmake_info("Building ${APP_TITLE} version ${APP_VERSION}.")
 #include(include/CMakeLists.txt)
 #include(src/CMakeLists.txt)
 include(CMakeLists2.txt)
+
 set(APP_VERSION
         "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
+
+find_package(SDL2)
+target_link_libraries(${HOMEBREW_APP}.elf switch::sdl2)
 
 find_package(Bz2)
 target_link_libraries(${HOMEBREW_APP}.elf switch::bz2)

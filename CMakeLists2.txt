@@ -278,7 +278,6 @@ find_package(ZLIB)
 find_package(OwnFreetype)
 find_package(Git)
 find_package(Pnglite)
-find_package(SDL2)
 find_package(Threads)
 find_package(Wavpack)
 
@@ -303,7 +302,6 @@ endfunction()
 show_dependency_status("Freetype" FREETYPE)
 show_dependency_status("Pnglite" PNGLITE)
 show_dependency_status("PythonInterp" PYTHONINTERP)
-show_dependency_status("SDL2" SDL2)
 show_dependency_status("Wavpack" WAVPACK)
 show_dependency_status("Zlib" ZLIB)
 
@@ -313,9 +311,6 @@ endif()
 
 if(CLIENT AND NOT(FREETYPE_FOUND))
   message(SEND_ERROR "You must install Freetype to compile the Teeworlds client")
-endif()
-if(CLIENT AND NOT(SDL2_FOUND))
-  message(SEND_ERROR "You must install SDL2 to compile the Teeworlds client")
 endif()
 if(NOT(GTEST_FOUND))
   if(DOWNLOAD_GTEST)
@@ -331,9 +326,6 @@ if(NOT(GTEST_FOUND))
 endif()
 
 set(PLATFORM_CLIENT)
-find_package(X11)
-set(PLATFORM_CLIENT_LIBS ${OPENGL_glu_LIBRARY} ${X11_X11_LIB})
-set(PLATFORM_CLIENT_INCLUDE_DIRS ${X11_X11_INCLUDE_PATH})
 if(TARGET_OS STREQUAL "linux")
   set(PLATFORM_LIBS rt) # clock_gettime for glibc < 2.17
 else()
@@ -1050,7 +1042,6 @@ foreach(datafile ${DATA})
 endforeach()
 set(COPY_FILES
   ${FREETYPE_COPY_FILES}
-  ${SDL2_COPY_FILES}
 )
 file(COPY ${COPY_FILES} DESTINATION .)
 
@@ -1381,7 +1372,6 @@ if(CLIENT)
     ${LIBS}
     ${FREETYPE_LIBRARIES}
     ${PNGLITE_LIBRARIES}
-    ${SDL2_LIBRARIES}
     ${WAVPACK_LIBRARIES}
     ${PLATFORM_CLIENT_LIBS}
   )
@@ -1403,7 +1393,6 @@ if(CLIENT)
   target_include_directories(${TARGET_CLIENT} PRIVATE
     ${FREETYPE_INCLUDE_DIRS}
     ${PNGLITE_INCLUDE_DIRS}
-    ${SDL2_INCLUDE_DIRS}
     ${WAVPACK_INCLUDE_DIRS}
   )
 
