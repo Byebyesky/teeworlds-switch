@@ -4,6 +4,11 @@
 #
 # libnx CMake template for Nintendo Switch homebrew development.
 
+
+if(NOT SWITCH)
+set(HOMEBREW_APP "teeworlds")
+include(CMakeLists2.txt)
+else()
 cmake_minimum_required(VERSION 3.1)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
@@ -69,15 +74,10 @@ include(nx-utils)
 
 cmake_info("Building ${APP_TITLE} version ${APP_VERSION}.")
 
-#include(include/CMakeLists.txt)
-#include(src/CMakeLists.txt)
 include(CMakeLists2.txt)
 
 set(APP_VERSION
         "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
-
-find_package(SDL2)
-target_link_libraries(${HOMEBREW_APP}.elf switch::sdl2)
 
 find_package(Bz2)
 target_link_libraries(${HOMEBREW_APP}.elf switch::bz2)
@@ -91,7 +91,6 @@ target_link_libraries(${HOMEBREW_APP}.elf switch::egl)
 find_package(GLES)
 target_link_libraries(${HOMEBREW_APP}.elf switch::gles)
 
-find_package(OpenGL)
 target_link_libraries(${HOMEBREW_APP}.elf switch::opengl)
 
 find_package(Drm)
@@ -105,3 +104,4 @@ set_target_properties(${HOMEBREW_APP}.elf PROPERTIES
 build_switch_binaries(${HOMEBREW_APP}.elf)
 #build_switch_sysmodule(${HOMEBREW_APP}.elf)  # build .kip
 #build_switch_nsp(${HOMEBREW_APP}.elf)  # build .nsp
+endif()

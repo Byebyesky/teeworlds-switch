@@ -1,7 +1,6 @@
 if (NOT SWITCH)
-    cmake_panic("This helper can only be used if you are using the Switch toolchain file.")
-endif ()
-
+    include(/usr/share/cmake-3.16/Modules/FindOpenGL.cmake)
+else()
 set(OPENGL_PATHS $ENV{OPENGL} GL ${OPENGL} ${PORTLIBS})
 
 find_path(OPENGL_INCLUDE_DIR gl.h
@@ -30,3 +29,4 @@ if (OPENGL_FOUND)
             IMPORTED_LOCATION ${OPENGL_LIBRARY}
             INTERFACE_INCLUDE_DIRECTORIES ${OPENGL_INCLUDE_DIR})
 endif ()
+endif()

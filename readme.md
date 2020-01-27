@@ -16,7 +16,7 @@ To build the port:
 mkdir build
 cd build
 cmake .. -DCMAKE_TOOLCHAIN_FILE=../devkita64-libnx.cmake
-make -j$(nproc)
+make -j$(nproc) teeworlds.nro
 ```
 
 After that you should find the files ``teeworlds.elf teeworlds.nacp teeworlds.nro teeworlds.nso`` in the build directory.  

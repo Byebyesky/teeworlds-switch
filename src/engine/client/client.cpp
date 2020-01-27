@@ -2555,8 +2555,10 @@ extern "C" int SDL_main(int argc, char **argv_) // ignore_convention
 #else
 int main(int argc, const char **argv) // ignore_convention
 {
-	Switch::socketInitializeDefault();
-	Switch::nxlinkStdio();
+	#if defined(__SWITCH__)
+		Switch::socketInitializeDefault();
+		Switch::nxlinkStdio();
+	#endif
 #endif
 #if defined(CONF_FAMILY_WINDOWS)
 	bool QuickEditMode = false;
@@ -2697,8 +2699,9 @@ int main(int argc, const char **argv) // ignore_convention
 	// run the client
 	dbg_msg("client", "starting...");
 	pClient->Run();
-	Switch::socketExit();
-
+	#if defined(__SWITCH__)
+		Switch::socketExit();
+	#endif
 	// write down the config and quit
 	pConfig->Save();
 
